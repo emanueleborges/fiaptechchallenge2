@@ -19,10 +19,13 @@ sys.path.insert(0, str(src_dir))
 # Importações locais
 try:
     from scraper.b3_scraper_local import B3Scraper
+    # Importar configurações
+    from config import config
+    CONFIG_AVAILABLE = True
 except ImportError as e:
     print(f"❌ Erro ao importar módulos: {e}")
     print("📁 Certifique-se de que os arquivos estão na estrutura correta")
-    sys.exit(1)
+    CONFIG_AVAILABLE = False
 
 # Configuração de logging
 logging.basicConfig(
@@ -42,9 +45,17 @@ def main():
     print("=" * 60)
     
     try:
+        # Obter configurações do bucket
+        if CONFIG_AVAILABLE:
+            bucket_name = config.s3_bucket_name
+            print(f"📡 Usando bucket configurado: {bucket_name}")
+        else:
+            bucket_name = "bovespa-test-bucket"  # Fallback
+            print("⚠️  Usando bucket padrão para teste local")
+        
         # 1. Configurar scraper
         print("📡 1. Configurando Web Scraper...")
-        scraper = B3Scraper("bovespa-test-bucket")  # Bucket fictício para teste local
+        scraper = B3Scraper(bucket_name)
         
         # 2. Fazer scraping dos dados
         print("🔄 2. Fazendo scraping dos dados da B3...")
@@ -129,9 +140,15 @@ def test_components():
     print("🧪 Testando componentes do pipeline...")
     
     try:
+        # Obter configurações do bucket
+        if CONFIG_AVAILABLE:
+            bucket_name = config.s3_bucket_name
+        else:
+            bucket_name = "test-bucket"  # Fallback
+        
         # Teste do scraper
         print("🔄 Testando scraper...")
-        scraper = B3Scraper("test-bucket")
+        scraper = B3Scraper(bucket_name)
         
         # Teste de parsing de números
         test_numbers = ["1.234.567,89", "123,45", "1.000"]

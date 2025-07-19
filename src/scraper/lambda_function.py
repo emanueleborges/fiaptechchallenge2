@@ -10,6 +10,17 @@ from io import BytesIO
 import logging
 from typing import Dict, List, Optional
 import re
+import os
+import sys
+
+# Adiciona o diretório raiz do projeto ao path para importar config
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+
+try:
+    from config import config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
 
 # Configuração de logging
 logger = logging.getLogger()
@@ -188,10 +199,13 @@ def lambda_handler(event, context):
         Resposta com status da execução
     """
     try:
-        # Obter configurações do ambiente
-        bucket_name = os.environ.get('S3_BUCKET_NAME')
-        if not bucket_name:
-            raise ValueError("Variável de ambiente S3_BUCKET_NAME não encontrada")
+        # Obter configurações
+        if CONFIG_AVAILABLE:
+            bucket_name = config.s3_bucket_name
+        else:
+            bucket_name = os.environ.get('S3_BUCKET_NAME')
+            if not bucket_name:
+                raise ValueError("Variável de ambiente S3_BUCKET_NAME não encontrada")
         
         # Determinar data para scraping
         date_str = event.get('date') if event and 'date' in event else datetime.now().strftime('%Y-%m-%d')
@@ -243,10 +257,17 @@ def lambda_handler(event, context):
             })
         }
 
+
 # Para teste local
 if __name__ == "__main__":
-    import os
-    os.environ['S3_BUCKET_NAME'] = 'bovespa-pipeline-bucket'
+    # Carrega configurações do .env para teste local
+    if CONFIG_AVAILABLE:
+        if not config.validate_aws_config():
+            print("❌ Configurações AWS inválidas no arquivo .env")
+            exit(1)
+    else:
+        # Fallback para variáveis de ambiente se config não disponível
+        os.environ['S3_BUCKET_NAME'] = 'bovespa-pipeline-bucket'
     
     test_event = {
         'date': '2025-01-19'

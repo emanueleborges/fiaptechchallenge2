@@ -14,11 +14,18 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import JSONResponse
 import uvicorn
 
-# Importar scraper local
+# Importar scraper local e configurações
 import sys
 sys.path.append('src')
 
 from scraper.b3_scraper_local import B3Scraper
+
+# Carregar configurações
+try:
+    from config import config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
 
 # Configurar FastAPI
 app = FastAPI(
@@ -293,14 +300,22 @@ async def export_data(format: str):
         raise HTTPException(status_code=500, detail=f"Erro no export: {str(e)}")
 
 if __name__ == "__main__":
+    # Obter configurações da API
+    if CONFIG_AVAILABLE:
+        host = config.api_host
+        port = config.api_port
+    else:
+        host = "0.0.0.0"
+        port = 8000
+    
     # Carregar dados iniciais
     print("🚀 Iniciando API Bovespa...")
     get_latest_data()
     
     print("🌐 API disponível em:")
-    print("   • http://localhost:8000")
-    print("   • Documentação: http://localhost:8000/docs")
-    print("   • ReDoc: http://localhost:8000/redoc")
+    print(f"   • http://{host}:{port}")
+    print(f"   • Documentação: http://{host}:{port}/docs")
+    print(f"   • ReDoc: http://{host}:{port}/redoc")
     print()
     print("📊 Endpoints principais:")
     print("   • GET /api/v1/bovespa/latest - Dados mais recentes")
@@ -309,4 +324,4 @@ if __name__ == "__main__":
     print("   • GET /refresh - Atualizar dados")
     
     # Iniciar servidor
-    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
+    uvicorn.run(app, host=host, port=port, log_level="info")

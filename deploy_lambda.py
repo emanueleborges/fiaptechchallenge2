@@ -12,13 +12,34 @@ import time
 from pathlib import Path
 from datetime import datetime
 
+# Carregar configurações
+try:
+    from config import config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
+
 class LambdaDeployer:
     def __init__(self):
-        self.lambda_client = boto3.client('lambda')
-        self.iam_client = boto3.client('iam')
-        self.s3_client = boto3.client('s3')
-        self.account_id = boto3.client('sts').get_caller_identity()['Account']
-        self.region = boto3.Session().region_name or 'us-east-1'
+        if CONFIG_AVAILABLE:
+            # Usar configurações do .env
+            session_kwargs = config.get_boto3_session_kwargs()
+            self.lambda_client = boto3.client('lambda', **session_kwargs)
+            self.iam_client = boto3.client('iam', **session_kwargs)
+            self.s3_client = boto3.client('s3', **session_kwargs)
+            self.account_id = boto3.client('sts', **session_kwargs).get_caller_identity()['Account']
+            self.region = config.aws_region
+            self.s3_bucket_name = config.s3_bucket_name
+            self.lambda_role_name = config.lambda_role_name
+        else:
+            # Fallback para configurações padrão
+            self.lambda_client = boto3.client('lambda')
+            self.iam_client = boto3.client('iam')
+            self.s3_client = boto3.client('s3')
+            self.account_id = boto3.client('sts').get_caller_identity()['Account']
+            self.region = boto3.Session().region_name or 'us-east-1'
+            self.s3_bucket_name = 'bovespa-pipeline-bucket'
+            self.lambda_role_name = 'lambda-bovespa-role'
         
     def create_lambda_role(self, role_name, assume_role_policy, policy_document):
         """Cria role IAM para Lambda"""

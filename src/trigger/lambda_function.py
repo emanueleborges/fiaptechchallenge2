@@ -4,6 +4,16 @@ import logging
 from datetime import datetime
 import urllib.parse
 import os
+import sys
+
+# Adiciona o diretório raiz do projeto ao path para importar config
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+
+try:
+    from config import config
+    CONFIG_AVAILABLE = True
+except ImportError:
+    CONFIG_AVAILABLE = False
 
 # Configuração de logging
 logger = logging.getLogger()
@@ -25,8 +35,13 @@ def lambda_handler(event, context):
         Resposta com status da execução
     """
     try:
-        # Obter configurações do ambiente
-        glue_job_name = os.environ.get('GLUE_JOB_NAME', 'bovespa-etl-job')
+        # Obter configurações
+        if CONFIG_AVAILABLE:
+            glue_job_name = config.glue_job_name
+            raw_data_prefix = config.s3_raw_data_prefix
+        else:
+            glue_job_name = os.environ.get('GLUE_JOB_NAME', 'bovespa-etl-job')
+            raw_data_prefix = os.environ.get('S3_RAW_DATA_PREFIX', 'raw-data/bovespa/')
         
         logger.info("Iniciando processamento do evento S3")
         
@@ -39,7 +54,7 @@ def lambda_handler(event, context):
             logger.info(f"Arquivo detectado: s3://{bucket_name}/{object_key}")
             
             # Verificar se é um arquivo de dados brutos
-            if not object_key.startswith('raw-data/bovespa/') or not object_key.endswith('.parquet'):
+            if not object_key.startswith(raw_data_prefix) or not object_key.endswith('.parquet'):
                 logger.info(f"Arquivo ignorado (não é dado bruto): {object_key}")
                 continue
             

@@ -31,11 +31,9 @@ Este projeto implementa um pipeline completo para captura e processamento de dad
 ├── src/
 │   ├── scraper/           # Lambda para scraping dos dados da B3
 │   │   ├── lambda_function.py
-│   │   ├── requirements.txt
 │   │   └── utils.py
 │   ├── trigger/           # Lambda para acionar Glue Job
 │   │   ├── lambda_function.py
-│   │   └── requirements.txt
 │   └── glue/             # Configurações do Glue Job
 │       └── job_script.py
 ├── infrastructure/        # Terraform/CloudFormation
@@ -60,10 +58,49 @@ Este projeto implementa um pipeline completo para captura e processamento de dad
 
 ### Instalação e Deploy
 
-1. Clone o repositório
-2. Configure as credenciais AWS
-3. Execute o deploy da infraestrutura
-4. Agende o scraper para execução diária
+#### 1. Configuração Inicial
+
+```bash
+# 1. Clone o repositório
+git clone <repository-url>
+cd fiaptechchallenge2
+
+# 2. Instale as dependências
+pip install -r requirements.txt
+
+# 3. Configure suas credenciais AWS
+python configure_aws.py
+```
+
+#### 2. Configuração com Arquivo .env
+
+Este projeto utiliza um sistema de configuração centralizado com arquivo `.env`. 
+
+📖 **Consulte o [CONFIG_README.md](CONFIG_README.md) para detalhes completos sobre configuração.**
+
+Principais comandos:
+```bash
+# Configurar credenciais AWS interativamente
+python configure_aws.py
+
+# Testar conexão com AWS
+python configure_aws.py test
+
+# Executar pipeline local
+python main.py
+
+# Iniciar API local
+python api_server.py
+
+# Deploy para AWS
+python deploy_lambda.py
+```
+
+#### 3. Arquivos de Configuração
+
+- **`.env`** - Suas configurações (criado automaticamente, não versionado)
+- **`.env.example`** - Template com exemplos
+- **`config.py`** - Módulo de gerenciamento de configurações
 
 ### Monitoramento
 

@@ -1,0 +1,114 @@
+# Configurações sensíveis
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Credenciais AWS
+credentials
+config
+*.pem
+*.key
+
+# Cache Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribuição / empacotamento
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dados temporários
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Arquivos de backup
+*.bak
+*.backup
+*.old
+
+# Arquivos comprimidos
+*.zip
+*.tar.gz
+*.rar
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Node modules (se usar Node.js em algum momento)
+node_modules/
+
+# Jupyter Notebook
+.ipynb_checkpoints
