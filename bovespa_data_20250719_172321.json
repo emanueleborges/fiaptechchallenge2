@@ -1,0 +1,102 @@
+[
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "PETR4",
+    "nome_empresa": "PETROBRAS",
+    "tipo_acao": "PN",
+    "quantidade_teorica": 4500000000.0,
+    "percentual_participacao": 8.5,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "VALE3",
+    "nome_empresa": "VALE",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 5200000000.0,
+    "percentual_participacao": 7.8,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "ITUB4",
+    "nome_empresa": "ITAÚ UNIBANCO",
+    "tipo_acao": "PN",
+    "quantidade_teorica": 4800000000.0,
+    "percentual_participacao": 6.2,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "BBDC4",
+    "nome_empresa": "BRADESCO",
+    "tipo_acao": "PN",
+    "quantidade_teorica": 4200000000.0,
+    "percentual_participacao": 5.9,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "ABEV3",
+    "nome_empresa": "AMBEV S/A",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 3800000000.0,
+    "percentual_participacao": 4.7,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "B3SA3",
+    "nome_empresa": "B3",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 2900000000.0,
+    "percentual_participacao": 4.2,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "WEGE3",
+    "nome_empresa": "WEG",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 2100000000.0,
+    "percentual_participacao": 3.8,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "SUZB3",
+    "nome_empresa": "SUZANO",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 1800000000.0,
+    "percentual_participacao": 3.1,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "RENT3",
+    "nome_empresa": "LOCALIZA",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 1600000000.0,
+    "percentual_participacao": 2.9,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  },
+  {
+    "data_pregao": "2025-07-19",
+    "codigo_acao": "LREN3",
+    "nome_empresa": "LOJAS RENNER",
+    "tipo_acao": "ON",
+    "quantidade_teorica": 1400000000.0,
+    "percentual_participacao": 2.5,
+    "data_extracao": "2025-07-19T17:23:21.336677",
+    "fonte": "B3_IBOV_SAMPLE"
+  }
+]
